@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
-use anchor_spl::token::TokenAccount;
+use anchor_spl::token::{spl_token, Mint, TokenAccount};
 
-use crate::constants::WSOL_MINT;
+
 use crate::error::ErrorCode;
 use crate::ArbState;
 
@@ -11,10 +11,16 @@ pub struct CheckProfit<'info> {
     pub user: Signer<'info>,
     #[account(
         mut,
-        associated_token::mint = WSOL_MINT,  
+        associated_token::mint = wsol_mint,  
         associated_token::authority = user
     )]
-    pub wsol_account: Account<'info, TokenAccount>,
+    pub wsol_account: Account<'info, TokenAccount>, 
+
+    #[account(
+        address = spl_token::native_mint::ID,
+    )]
+    pub wsol_mint: Account<'info, Mint>,
+    
     #[account(
         mut,
         seeds = [b"state", user.key().as_ref()],

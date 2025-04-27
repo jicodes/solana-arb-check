@@ -11,8 +11,6 @@ pub use state::*;
 
 declare_id!("7xNxrvV9454Eo9whXXkXdKEVoMsw2V9sEiQPkpNiYAxx");
 
-
-
 #[program]
 pub mod arbcheck {
     use super::*;
@@ -23,6 +21,4 @@ pub mod arbcheck {
     pub fn check_profit(ctx: Context<CheckProfit>, min_profit: u64) -> Result<()> {
         ctx.accounts.check_profit(min_profit)
     }
-
-    
 }
