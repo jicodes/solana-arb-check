@@ -10,8 +10,8 @@ pub struct SaveBalance<'info> {
     pub user: Signer<'info>,
     #[account(
         mut,
-        constraint = wsol_account.owner == user.key(),
-        constraint = wsol_account.mint == WSOL_MINT
+        associated_token::mint = WSOL_MINT,  
+        associated_token::authority = user
     )]
     pub wsol_account: Account<'info, TokenAccount>,
     #[account(
